@@ -1,5 +1,5 @@
 # Socket.IO CVE
-A carefully crafted message sent from a connected client can throw an error on the server, causing denial of service
+A carefully crafted message sent from a connected client can throw an error on the server, causing denial of service in several versions of socket.io
 
 ## Replication
 - In the code below, the attack will commence as soon as soon as the [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket) instance is intercepted
