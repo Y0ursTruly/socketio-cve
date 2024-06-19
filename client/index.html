@@ -6,11 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
   <body>
-    <ul id="messages"></ul>
-    <form id="form" action="">
-      <input id="input" autocomplete="off" /><button>Send</button>
-    </form>
-    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
-    <script type="text/javascript" src="/client/main.js"></script>
+    <script>
+      const socket = new WebSocket("ws://localhost:3000/socket.io/?EIO=4&transport=websocket");
+
+      socket.addEventListener("open", () => {
+        socket.send("40"); // Socket.IO handshake
+      });
+
+      socket.addEventListener("message", ({ data }) => {
+        console.log("received", data);
+        if (data.startsWith("40")) {
+          socket.send('42["error"]');
+        }
+      });
+    </script>
   </body>
 </html>
